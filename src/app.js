@@ -13,23 +13,7 @@ const adminRoutes       = require('./routes/admin.routes');
 
 const app = express();
 
-const corsOptions = {
-  origin: (origin, callback) => {
-    const allowedOrigins = [
-      process.env.FRONTEND_URL,
-      'http://localhost:5173',
-    ].filter(Boolean);
-    if (!origin || allowedOrigins.includes(origin)) {
-      callback(null, true);
-    } else {
-      callback(new Error(`CORS bloqueado: ${origin}`));
-    }
-  },
-  credentials: true
-};
-
-app.options('*', cors(corsOptions));
-app.use(cors(corsOptions));
+app.use(cors());
 app.use(express.json());
 
 app.use('/api/auth',         authRoutes);

@@ -4,6 +4,14 @@
     { "src": "api/index.js", "use": "@vercel/node" }
   ],
   "routes": [
-    { "src": "/(.*)", "dest": "api/index.js" }
+    {
+      "src": "/(.*)",
+      "headers": {
+        "Access-Control-Allow-Origin": "https://frontend-restaurant-system-git34dfs-projects.vercel.app",
+        "Access-Control-Allow-Methods": "GET,POST,PUT,PATCH,DELETE,OPTIONS",
+        "Access-Control-Allow-Headers": "Content-Type, Authorization"
+      },
+      "dest": "api/index.js"
+    }
   ]
 }

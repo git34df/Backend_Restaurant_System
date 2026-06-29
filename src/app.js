@@ -13,7 +13,23 @@ const adminRoutes       = require('./routes/admin.routes');
 
 const app = express();
 
-app.use(cors());
+// ─── CORS ─────────────────────────────────
+const allowedOrigins = [
+  process.env.FRONTEND_URL,         // ej: https://restaurant-system.vercel.app
+  'http://localhost:5173',           // dev local
+].filter(Boolean);
+
+app.use(cors({
+  origin: (origin, callback) => {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error(`CORS bloqueado: ${origin}`));
+    }
+  },
+  credentials: true
+}));
+
 app.use(express.json());
 
 // ─── Rutas ───────────────────────────────

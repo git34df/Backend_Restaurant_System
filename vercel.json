@@ -7,7 +7,7 @@
     {
       "src": "/(.*)",
       "headers": {
-        "Access-Control-Allow-Origin": "https://frontend-restaurant-system-git34dfs-projects.vercel.app",
+        "Access-Control-Allow-Origin": "https://frontend-restaurant-system-taupe.vercel.app",
         "Access-Control-Allow-Methods": "GET,POST,PUT,PATCH,DELETE,OPTIONS",
         "Access-Control-Allow-Headers": "Content-Type, Authorization"
       },

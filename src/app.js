@@ -13,14 +13,12 @@ const adminRoutes       = require('./routes/admin.routes');
 
 const app = express();
 
-// ─── CORS ─────────────────────────────────
-const allowedOrigins = [
-  process.env.FRONTEND_URL,         // ej: https://restaurant-system.vercel.app
-  'http://localhost:5173',           // dev local
-].filter(Boolean);
-
-app.use(cors({
+const corsOptions = {
   origin: (origin, callback) => {
+    const allowedOrigins = [
+      process.env.FRONTEND_URL,
+      'http://localhost:5173',
+    ].filter(Boolean);
     if (!origin || allowedOrigins.includes(origin)) {
       callback(null, true);
     } else {
@@ -28,11 +26,12 @@ app.use(cors({
     }
   },
   credentials: true
-}));
+};
 
+app.options('*', cors(corsOptions));
+app.use(cors(corsOptions));
 app.use(express.json());
 
-// ─── Rutas ───────────────────────────────
 app.use('/api/auth',         authRoutes);
 app.use('/api/pedidos',      pedidoRoutes);
 app.use('/api/clientes',     clienteRoutes);
@@ -42,7 +41,6 @@ app.use('/api/pagos',        pagoRoutes);
 app.use('/api/reclamos',     reclamoRoutes);
 app.use('/api/admin',        adminRoutes);
 
-// ─── Health checks ────────────────────────
 app.get('/', (req, res) => res.send("API D'Alicias 🍽️"));
 
 app.get('/api/db-test', (req, res) => {
